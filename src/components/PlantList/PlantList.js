@@ -8,14 +8,26 @@ function PlantList() {
     const reduxState = useSelector(store => store);
 
     useEffect(() => {
-        console.log('component did mount');
-        // dispatch an action to request the plantList from the API
-    }, []); 
+        dispatch({type: "GET_PLANTS"});
+    }, []);
 
     return (
         <div>
             <h3>This is the plant list</h3>
-            <pre>{JSON.stringify(reduxState)}</pre>
+            <ul> 
+                {reduxState.plantList.map((plant) => (
+                    <li key={plant.id}>
+                    {plant.name} 
+                    <button onClick={()=>dispatch({type:"DELETE", payload:plant.id})}>
+                    DELETE
+                    </button>
+                    </li>                   
+                ))}
+                
+
+
+
+            </ul>
         </div>
     );
 }
